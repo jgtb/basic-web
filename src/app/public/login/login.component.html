@@ -1,0 +1,37 @@
+<div class="login-content">
+  <div class="row">
+    <div class="col-lg-4 col-md-12 col-xs-12 col-lg-offset-4">
+      <div class="image">
+        <div class="title">Angular 2/4</div>
+        <img src="./assets/img/angular.png" alt="">
+      </div>
+      <form [formGroup]="data" (ngSubmit)="login()">
+        <div class="form-group">
+          <label>E-mail</label>
+          <input formControlName="email" placeholder="E-mail" type="text" class="form-control">
+        </div>
+        <hr>
+        <div class="form-group">
+          <label>Password</label>
+          <input formControlName="password" placeholder="Password" type="password" class="form-control">
+        </div>
+        <div *ngIf="hasAuthError" class="form-auth-error">
+          <p>Incorrect e-mail or password</p>
+        </div>
+        <div class="login-button">
+          <button type="submit" class="btn btn-primary" [disabled]="!data.valid">Sign In</button>
+        </div>
+        <div class="footer">
+          <div class="row">
+            <div class="col-lg-6">
+              <a href="" class="forgot-password-button">forgot password?</a>
+            </div>
+            <div class="col-lg-6">
+              <a href="" class="register-button">register here</a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

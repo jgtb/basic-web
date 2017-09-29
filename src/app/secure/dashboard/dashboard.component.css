@@ -1,0 +1,11 @@
+.user-img, .user-account p {
+  text-align: center;
+}
+
+.user-account p {
+  margin-top: 15px;
+}
+
+.user-account .row {
+  margin-top: 20px;
+}

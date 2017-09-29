@@ -1,0 +1,43 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-9">
+      <a class="btn btn-success" [routerLink]="['/checklist/create']">New Checklist</a>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" placeholder="Search..." class="form-control" [(ngModel)]="query">
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Description</th>
+            <th>Products</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataChecklist | checklistPipe: query; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.description }}</td>
+            <td [innerHTML]="getListProducts(item.checklistProducts)"></td>
+            <td><span class="badge">{{ item.checklistProducts.length }}</span></td>
+            <td>
+              <a class="btn btn-xs btn-info" [routerLink]="['/checklist/view']" [queryParams]="{id: item.checklist_id}"><i class="fa fa-th-list"></i></a>
+              <a class="btn btn-xs btn-primary" [routerLink]="['/checklist/update']" [queryParams]="{id: item.checklist_id}"><i class="fa fa-edit"></i></a>
+              <a class="btn btn-xs btn-danger" (click)="delete(item.checklist_id)"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

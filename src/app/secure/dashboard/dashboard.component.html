@@ -1,0 +1,124 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+                <div class="content">
+                  <div class="user-img">
+                    <img src="{{ util.baseURL }}img/user/{{ dataUser.img }}" alt="" class="img-circle">
+                  </div>
+                  <div class="user-account">
+                    <p>{{ dataUser.username }}</p>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <span class="fa fa-user"></span> {{ dataUser.username }}
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="fa fa-envelope"></span> {{ dataUser.email }}
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="fa fa-mars"></span> Male
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <span class="fa fa-calendar"></span> 1993-03-30
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="fa fa-calendar"></span> 24
+                      </div>
+                      <div class="col-lg-4">
+                        <span class="fa fa-map-marker"></span> USA / California
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-warning text-center">
+                                <i class="ti-list"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Categories</p>
+                                {{ countCategory }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-success text-center">
+                                <i class="ti-bookmark"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Tags</p>
+                                {{ countTag }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-danger text-center">
+                                <i class="ti-briefcase"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Products</p>
+                                {{ countProduct }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="icon-big icon-info text-center">
+                                <i class="ti-files"></i>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <div class="numbers">
+                                <p>Lists</p>
+                                {{ countChecklist }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

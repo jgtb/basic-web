@@ -1,0 +1,49 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-lg-9">
+      <a class="btn btn-success" [routerLink]="['/product/create']">New Product</a>
+    </div>
+    <div class="col-lg-3">
+      <input type="text" placeholder="Search..." class="form-control" [(ngModel)]="query">
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th></th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Tags</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of dataProduct | productPipe: query; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td><img src="{{ util.baseURL }}img/product/{{ item.img }}" alt="" class="product-img"></td>
+            <td>{{ item.description }}</td>
+            <td>{{ item.category.description }}</td>
+            <td [innerHTML]="getProductTags(item.productTags)"></td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+              <a class="btn btn-xs btn-info" [routerLink]="['/product/view']" [queryParams]="{id: item.product_id}"><i class="fa fa-th-list"></i></a>
+              <a class="btn btn-xs btn-primary" [routerLink]="['/product/update']" [queryParams]="{id: item.product_id}"><i class="fa fa-edit"></i></a>
+              <a class="btn btn-xs btn-danger" (click)="delete(item.product_id)"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

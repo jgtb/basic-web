@@ -1,0 +1,19 @@
+.login-button {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.login-button button {
+  text-transform: uppercase;
+  width: 140px;
+}
+
+.forgot-password-button {
+  color: #f53d3d;
+}
+
+.register-button {
+  color: #32db64;
+  float: right;
+}
