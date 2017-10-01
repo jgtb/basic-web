@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { SecureComponent } from './layout/secure';
 import { PublicComponent } from './layout/public';
 
+import { BreadcrumbComponent } from './layout/secure/breadcrumb/breadcrumb.component';
 import { NavbarComponent } from './layout/secure/navbar/navbar.component';
 import { SidebarComponent } from './layout/secure/sidebar/sidebar.component';
 import { FooterComponent } from './layout/secure/footer/footer.component';
@@ -47,11 +48,14 @@ import { ChecklistPipe } from './pipes/checklist/checklist.pipe';
 
 import { AuthGuard } from './../common/auth.guard';
 
+import { DataTableModule } from "angular2-datatable";
+
 @NgModule({
   declarations: [
     AppComponent,
     PublicComponent,
     SecureComponent,
+    BreadcrumbComponent,
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
@@ -72,13 +76,14 @@ import { AuthGuard } from './../common/auth.guard';
     CategoryPipe,
     TagPipe,
     ProductPipe,
-    ChecklistPipe
+    ChecklistPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    DataTableModule,
     HttpModule,
   ],
   providers: [AuthGuard, AuthProvider, CategoryProvider, TagProvider, ProductProvider, ChecklistProvider, Util],

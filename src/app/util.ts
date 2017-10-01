@@ -8,6 +8,8 @@ export class Util {
 
   navbarTitle: string;
 
+  breadcrumbs: any = [];
+
   constructor() {}
 
   setUser(data) {

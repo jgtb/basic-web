@@ -24,7 +24,8 @@ export class CategoryFormComponent implements OnInit {
     this.checkRouteParams();
     this.getAction();
     this.categoryProvider.view(this.id).subscribe(data => {this.initFormValue(data)})
-    this.setTitle();
+    this.setBreadcrumbs();
+    this.setNavbarTitle();
   }
 
   ngOnInit() {}
@@ -76,8 +77,19 @@ export class CategoryFormComponent implements OnInit {
     this.data.controls['description'].setValue(data.description)
   }
 
-  setTitle() {
-    this.util.navbarTitle = this.getAction() + ' Category';
+  getTitle() {
+    return this.getAction() + ' Category'
+  }
+
+  setNavbarTitle() {
+    this.util.navbarTitle = this.getTitle();
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
+    this.util.breadcrumbs.push({title: 'Categories', path: '/category'});
+    this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'});
   }
 
 }

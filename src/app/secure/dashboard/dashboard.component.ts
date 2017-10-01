@@ -22,19 +22,23 @@ export class DashboardComponent implements OnInit {
     countProduct: number;
     countChecklist: number;
 
-    constructor(private util: Util, private categoryProvider: CategoryProvider, private tagProvider: TagProvider, private productProvider: ProductProvider, private checklistProvider: ChecklistProvider) {
-      this.dataUser = this.util.getUser()
-    }
+    constructor(private util: Util, private categoryProvider: CategoryProvider, private tagProvider: TagProvider, private productProvider: ProductProvider, private checklistProvider: ChecklistProvider) {}
 
     ngOnInit() {
+      this.dataUser = this.util.getUser()
       this.categoryProvider.index().subscribe(data => this.countCategory = data.length)
       this.tagProvider.index().subscribe(data => this.countTag = data.length)
       this.productProvider.index().subscribe(data => this.countProduct = data.length)
       this.checklistProvider.index().subscribe(data => this.countChecklist = data.length)
       this.setTitle();
+      this.setBreadcrumbs();
     }
 
     setTitle() {
       this.util.navbarTitle = 'Dashboard';
+    }
+
+    setBreadcrumbs() {
+      this.util.breadcrumbs = false;
     }
 }

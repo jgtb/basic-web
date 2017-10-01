@@ -24,3 +24,7 @@
 .form-auth-error p {
 	color: #f53d3d;
 }
+
+a, a:hover, a:focus {
+	color: #66615b;
+}

@@ -29,6 +29,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setTitle();
+    this.setBreadcrumbs();
     this.categoryProvider.index().subscribe(data => {
       this.dataCategory = data;
       this.refreshData();
@@ -66,6 +67,12 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
   setTitle() {
     this.util.navbarTitle = 'Categories';
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
+    this.util.breadcrumbs.push({title: 'Categories', class: 'active'});
   }
 
 }

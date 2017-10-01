@@ -13,20 +13,21 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 })
 export class TagComponent implements OnInit {
 
-  dataTag: any = [];
+  public data;
+  public query = "";
+  public rowsOnPage = 5;
+  public sortBy = "description";
+  public sortOrder = "asc";
 
-  query: string = '';
-
-  constructor(private tagProvider: TagProvider, private util: Util, private router: Router) {
-  }
+  constructor(private tagProvider: TagProvider, private util: Util, private router: Router) {}
 
   ngOnInit() {
     this.setTitle();
-    this.tagProvider.index().subscribe(data => { this.dataTag = data; });
+    this.tagProvider.index().subscribe(data => { this.data = data; });
   }
 
   delete(id) {
-    this.tagProvider.delete(id).subscribe(data => { this.tagProvider.index().subscribe(data => { this.dataTag = data; }); })
+    this.tagProvider.delete(id).subscribe(data => { this.tagProvider.index().subscribe(data => { this.data = data; }); })
   }
 
   setTitle() {
