@@ -1,5 +1,33 @@
 <div class="container-fluid">
-  <p>
-    ChecklistView Works
-  </p>
+
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="checklist-content">
+            <h3><span class="fa fa-files-o"></span> {{ data.description }}</h3>
+            <h5><span class="fa fa-leaf"></span> {{ data.checklistProducts.length }} Products</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-title">Products</div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-lg-3" *ngFor="let item of data.checklistProducts">
+              <img src="{{ util.baseURL }}img/product/{{ item.product.img }}" alt="" class="product-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

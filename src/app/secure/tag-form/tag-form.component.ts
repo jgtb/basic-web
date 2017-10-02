@@ -91,7 +91,7 @@ export class TagFormComponent implements OnInit {
   setBreadcrumbs() {
     this.util.breadcrumbs = [];
     this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
-    this.util.breadcrumbs.push({title: 'Tags', path: '/Tag'});
+    this.util.breadcrumbs.push({title: 'Tags', path: '/tag'});
     this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'});
   }
 

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { ChecklistProvider } from './../../providers/checklist/checklist';
+
 import { Util } from '../../util';
 
 @Component({
@@ -9,11 +13,27 @@ import { Util } from '../../util';
 })
 export class ChecklistViewComponent implements OnInit {
 
-  constructor(private util: Util) {}
+  data;
+
+  id: string;
+
+  constructor(private util: Util, private activatedRoute: ActivatedRoute, private checklistProvider: ChecklistProvider) {}
 
   ngOnInit() {
+    this.checkRouteParams()
     this.setNavbarTitle()
     this.setBreadcrumbs()
+    this.getChecklist()
+  }
+
+  getChecklist() {
+    this.checklistProvider.view(this.id).subscribe(data => this.data = data)
+  }
+
+  checkRouteParams() {
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      this.id = params['id'];
+    });
   }
 
   setNavbarTitle() {
