@@ -1,11 +1,10 @@
-
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-md-6 col-xs-6">
       <a class="btn btn-success" [routerLink]="['/tag/create']">New Tag</a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-md-6 col-xs-6">
       <input type="text" placeholder="Search..." class="form-control" [(ngModel)]="query">
     </div>
   </div>
@@ -34,7 +33,7 @@
         </tbody>
         <tfoot>
           <tr>
-            <td colspan="2"><mfBootstrapPaginator></mfBootstrapPaginator></td>
+            <td colspan="3"><mfBootstrapPaginator></mfBootstrapPaginator></td>
           </tr>
         </tfoot>
       </table>

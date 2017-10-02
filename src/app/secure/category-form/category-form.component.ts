@@ -19,19 +19,18 @@ export class CategoryFormComponent implements OnInit {
 
   id: string;
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {
-    this.initForm();
-    this.checkRouteParams();
-    this.getAction();
-    this.categoryProvider.view(this.id).subscribe(data => {this.initFormValue(data)})
-    this.setBreadcrumbs();
-    this.setNavbarTitle();
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {}
+
+  ngOnInit() {
+    this.checkRouteParams()
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
+    this.initForm()
+    this.getCategory()
   }
 
-  ngOnInit() {}
-
   getAction() {
-    return this.id == null ? 'Create' : 'Update';
+      return this.id == null ? 'Create' : 'Update';
   }
 
   doAction() {
@@ -43,6 +42,10 @@ export class CategoryFormComponent implements OnInit {
         this.update();
       break;
     }
+  }
+
+  getCategory() {
+    this.categoryProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
   }
 
   create() {

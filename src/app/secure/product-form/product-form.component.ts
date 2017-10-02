@@ -25,20 +25,16 @@ export class ProductFormComponent implements OnInit {
 
   id: string;
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider, private tagProvider: TagProvider, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {
-    this.initForm();
-    this.checkRouteParams();
-    this.getAction();
-    this.productProvider.view(this.id).subscribe(data => {
-      this.setProductTags(data)
-      this.initFormValue(data)
-    })
-    this.setTitle();
-  }
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider, private tagProvider: TagProvider, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {}
 
   ngOnInit() {
-    this.dataCategory = this.categoryProvider.index().subscribe(data => { this.dataCategory = data })
-    this.dataTag = this.tagProvider.index().subscribe(data => { this.dataTag = data })
+    this.initForm()
+    this.checkRouteParams()
+    this.getAction()
+    this.getProduct()
+    this.getData()
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
   }
 
   getAction() {
@@ -54,6 +50,18 @@ export class ProductFormComponent implements OnInit {
         this.update();
       break;
     }
+  }
+
+  getData() {
+    this.dataCategory = this.categoryProvider.index().subscribe(data => { this.dataCategory = data })
+    this.dataTag = this.tagProvider.index().subscribe(data => { this.dataTag = data })
+  }
+
+  getProduct() {
+    this.productProvider.view(this.id).subscribe(data => {
+      this.setProductTags(data)
+      this.initFormValue(data)
+    })
   }
 
   create() {
@@ -97,19 +105,30 @@ export class ProductFormComponent implements OnInit {
   }
 
   initFormValue(data) {
-    this.data.controls['description'].setValue(data.description);
-    this.data.controls['productTags'].setValue(this.productTags);
-    this.data.controls['category_id'].setValue(data.category_id);
-    this.data.controls['quantity'].setValue(data.quantity);
-    this.data.controls['price'].setValue(data.price);
+    this.data.controls['description'].setValue(data.description)
+    this.data.controls['productTags'].setValue(this.productTags)
+    this.data.controls['category_id'].setValue(data.category_id)
+    this.data.controls['quantity'].setValue(data.quantity)
+    this.data.controls['price'].setValue(data.price)
   }
 
   setProductTags(data) {
-    data.productTags.map(obj => this.productTags.push(obj.tag_id));
+    data.productTags.map(obj => this.productTags.push(obj.tag_id))
   }
 
-  setTitle() {
-    this.util.navbarTitle = this.getAction() + ' Product';
+  getTitle() {
+    return this.getAction() + ' Product';
+  }
+
+  setNavbarTitle() {
+    this.util.navbarTitle = this.getTitle()
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'})
+    this.util.breadcrumbs.push({title: 'Products', path: '/product'})
+    this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'})
   }
 
 }

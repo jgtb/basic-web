@@ -17,62 +17,65 @@ import 'rxjs/Rx';
 })
 export class CategoryComponent implements OnInit, OnDestroy {
 
-  dataCategory: any = [];
+  data;
+  query = "";
+  rowsOnPage = 10;
+  sortBy = "description";
+  sortOrder = "asc";
 
-  query: string = '';
+  timerSubscription: AnonymousSubscription;
+  categoriesSubscription: AnonymousSubscription;
 
-  private timerSubscription: AnonymousSubscription;
-  private categoriesSubscription: AnonymousSubscription;
-
-  constructor(private categoryProvider: CategoryProvider, private util: Util, private router: Router) {
-  }
+  constructor(private categoryProvider: CategoryProvider, private util: Util, private router: Router) {}
 
   ngOnInit() {
-    this.setTitle();
-    this.setBreadcrumbs();
-    this.categoryProvider.index().subscribe(data => {
-      this.dataCategory = data;
-      this.refreshData();
-    });
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
+    this.getCategories()
   }
 
-  public ngOnDestroy(): void {
-    if (this.categoriesSubscription) {
-      this.categoriesSubscription.unsubscribe();
-    }
+  ngOnDestroy() {
+    if (this.categoriesSubscription)
+      this.categoriesSubscription.unsubscribe()
 
-    if (this.timerSubscription) {
-      this.timerSubscription.unsubscribe();
-    }
+    if (this.timerSubscription)
+      this.timerSubscription.unsubscribe()
+  }
+
+  getCategories() {
+    this.categoryProvider.index().subscribe(data => {
+      this.data = data;
+      this.refreshData()
+    })
   }
 
   delete(id) {
     this.categoryProvider.delete(id).subscribe(data => {
       this.categoryProvider.index().subscribe(data => {
-        this.dataCategory = data;
+        this.data = data;
       })
     })
   }
 
-  private refreshData(): void {
+  refreshData() {
     this.categoriesSubscription = this.categoryProvider.index().subscribe(data => {
-      this.dataCategory = data;
-      this.subscribeToData();
-    });
+      this.data = data;
+      this.subscribeToData()
+    })
   }
 
-  private subscribeToData(): void {
-    this.timerSubscription = Observable.timer(500).subscribe(() => this.refreshData());
+  subscribeToData() {
+    this.timerSubscription = Observable.timer(5000).subscribe(() => this.refreshData())
   }
 
-  setTitle() {
+  setNavbarTitle() {
     this.util.navbarTitle = 'Categories';
   }
 
   setBreadcrumbs() {
     this.util.breadcrumbs = [];
-    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
-    this.util.breadcrumbs.push({title: 'Categories', class: 'active'});
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'})
+    this.util.breadcrumbs.push({title: 'Categories', class: 'active'})
   }
 
 }

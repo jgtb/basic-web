@@ -13,7 +13,6 @@ import { Util } from '../../../util';
 
 export class NavbarComponent implements OnInit{
     private dataUser: any[];
-    private listTitles: any[];
 
     private nativeElement: Node;
     private toggleButton;
@@ -26,7 +25,6 @@ export class NavbarComponent implements OnInit{
     }
 
     ngOnInit() {
-        this.listTitles = ROUTES.filter(listTitle => listTitle);
         var navbar : HTMLElement = this.element.nativeElement;
         this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
     }

@@ -2,12 +2,25 @@
 	background: linear-gradient(to right, #232526, #414345);
 }
 
+.breadcrumb {
+	background-color: #fff;
+	margin-top: -10px;
+}
+
+.breadcrumb li:not(.active) {
+	cursor: pointer;
+}
+
 .login-content {
 	margin-top: 8%;
 }
 
 .image {
 	text-align: center;
+}
+
+.overflow-auto {
+	overflow: auto;
 }
 
 .image .title {

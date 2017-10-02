@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { ChecklistProvider } from './../../providers/checklist/checklist';
 
@@ -6,30 +6,50 @@ import { Util } from '../../util';
 
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
+import { Observable } from "rxjs/Observable";
+import { AnonymousSubscription } from "rxjs/Subscription";
+import 'rxjs/Rx';
+
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.css']
 })
-export class ChecklistComponent implements OnInit {
+export class ChecklistComponent implements OnInit, OnDestroy {
 
-  dataChecklist: any = [];
+  data;
+  query = "";
+  rowsOnPage = 10;
+  sortBy = "description";
+  sortOrder = "asc";
 
-  query: string = '';
+  timerSubscription: AnonymousSubscription;
+  checklistsSubscription: AnonymousSubscription;
 
-  constructor(private checklistProvider: ChecklistProvider, private util: Util, private router: Router) {
-  }
+  constructor(private checklistProvider: ChecklistProvider, private util: Util, private router: Router) {}
 
   ngOnInit() {
-    this.setTitle();
-    this.checklistProvider.index().subscribe(data => { this.dataChecklist = data; });
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
+    this.getCategories()
   }
 
-  delete(id) {
-    this.checklistProvider.delete(id).subscribe(data => { this.checklistProvider.index().subscribe(data => { this.dataChecklist = data; }); })
+  ngOnDestroy() {
+    if (this.checklistsSubscription)
+      this.checklistsSubscription.unsubscribe()
+
+    if (this.timerSubscription)
+      this.timerSubscription.unsubscribe()
   }
 
-  getListProducts(item) {
+  getCategories() {
+    this.checklistProvider.index().subscribe(data => {
+      this.data = data;
+      this.refreshData()
+    })
+  }
+
+  getChecklistProducts(item) {
     let tags = item.reduce(function(prevVal, elem) {
       return prevVal + '<span class="badge">' + elem.product.description + '</span> ';
     }, '')
@@ -37,8 +57,33 @@ export class ChecklistComponent implements OnInit {
     return tags.substr(0, tags.length -2);
   }
 
-  setTitle() {
+  delete(id) {
+    this.checklistProvider.delete(id).subscribe(data => {
+      this.checklistProvider.index().subscribe(data => {
+        this.data = data;
+      })
+    })
+  }
+
+  refreshData() {
+    this.checklistsSubscription = this.checklistProvider.index().subscribe(data => {
+      this.data = data;
+      this.subscribeToData()
+    })
+  }
+
+  subscribeToData() {
+    this.timerSubscription = Observable.timer(5000).subscribe(() => this.refreshData())
+  }
+
+  setNavbarTitle() {
     this.util.navbarTitle = 'Checklists';
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'})
+    this.util.breadcrumbs.push({title: 'Checklists', class: 'active'})
   }
 
 }

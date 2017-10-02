@@ -17,15 +17,13 @@ export class ProductViewComponent implements OnInit {
 
   id: string
 
-  constructor(private util: Util, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider) {
-    this.checkRouteParams();
-    this.productProvider.view(this.id).subscribe(data => {
-      this.dataProduct = data;
-    })
-    this.setTitle();
-  }
+  constructor(private util: Util, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider) {}
 
   ngOnInit() {
+    this.checkRouteParams()
+    this.getProduct()
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
   }
 
   checkRouteParams() {
@@ -34,16 +32,29 @@ export class ProductViewComponent implements OnInit {
     });
   }
 
+  getProduct() {
+    this.productProvider.view(this.id).subscribe(data => {
+      this.dataProduct = data;
+    })
+  }
+
   getProductTags() {
     let tags = this.dataProduct.productTags.reduce(function(prevVal, elem) {
       return prevVal + '<span class="badge">' + elem.tag.description.replace(/\s+/, '') + '</span> ';
     }, '')
 
-    return tags.substr(0, tags.length -2);
+    return tags;
   }
 
-  setTitle() {
+  setNavbarTitle() {
     this.util.navbarTitle = 'Product View';
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'})
+    this.util.breadcrumbs.push({title: 'Products', path: '/product'})
+    this.util.breadcrumbs.push({title: 'Product View', class: 'active'})
   }
 
 }

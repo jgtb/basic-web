@@ -1,10 +1,10 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-md-6 col-xs-6">
       <a class="btn btn-success" [routerLink]="['/checklist/create']">New Checklist</a>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 col-md-6 col-xs-6">
       <input type="text" placeholder="Search..." class="form-control" [(ngModel)]="query">
     </div>
   </div>
@@ -12,22 +12,22 @@
   <hr>
 
   <div class="row">
-    <div class="col-md-12">
-      <table class="table table-condensed table-striped">
+    <div class="col-lg-12">
+      <table class="table table-striped" [mfData]="data | checklistPipe : query" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
         <thead>
           <tr>
             <th>#</th>
-            <th>Description</th>
+            <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
             <th>Products</th>
             <th>Quantity</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of dataChecklist | checklistPipe: query; let i = index">
+          <tr *ngFor="let item of mf.data; let i = index">
             <td>{{ i + 1 }}</td>
             <td>{{ item.description }}</td>
-            <td [innerHTML]="getListProducts(item.checklistProducts)"></td>
+            <td [innerHTML]="getChecklistProducts(item.checklistProducts)"></td>
             <td><span class="badge">{{ item.checklistProducts.length }}</span></td>
             <td>
               <a class="btn btn-xs btn-info" [routerLink]="['/checklist/view']" [queryParams]="{id: item.checklist_id}"><i class="fa fa-th-list"></i></a>
@@ -36,6 +36,11 @@
             </td>
           </tr>
         </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5"><mfBootstrapPaginator></mfBootstrapPaginator></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>

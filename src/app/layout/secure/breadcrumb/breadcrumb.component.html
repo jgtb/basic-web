@@ -1,5 +1,7 @@
-<ol class="breadcrumb" *ngIf="util.breadcrumbs.length > 0">
-  <li *ngFor="let breadcrumb of util.breadcrumbs" class="breadcrumb-item {{ breadcrumb.class }}" >
-    <a (click)="goTo(breadcrumb)">{{ breadcrumb.title }}</a>
-  </li>
-</ol>
+<div class="container-fluid">
+  <ol class="breadcrumb" *ngIf="util.breadcrumbs.length > 0">
+    <li *ngFor="let breadcrumb of util.breadcrumbs" class="breadcrumb-item {{ breadcrumb.class }}" >
+      <a (click)="goTo(breadcrumb)">{{ breadcrumb.title }}</a>
+    </li>
+  </ol>
+</div>

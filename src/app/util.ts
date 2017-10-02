@@ -19,5 +19,5 @@ export class Util {
   getUser() {
     return JSON.parse(localStorage.getItem('dataUser'))
   }
-
+  
 }

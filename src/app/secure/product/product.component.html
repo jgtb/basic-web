@@ -12,37 +12,44 @@
   <hr>
 
   <div class="row">
-    <div class="col-md-12" style="overflow: auto;">
-      <table class="table table-condensed table-striped table-responsive">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th></th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Tags</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of dataProduct | productPipe: query; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td><img src="{{ util.baseURL }}img/product/{{ item.img }}" alt="" class="product-img"></td>
-            <td>{{ item.description }}</td>
-            <td>{{ item.category.description }}</td>
-            <td [innerHTML]="getProductTags(item.productTags)"></td>
-            <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
-            <td>
-              <a class="btn btn-xs btn-info" [routerLink]="['/product/view']" [queryParams]="{id: item.product_id}"><i class="fa fa-th-list"></i></a>
-              <a class="btn btn-xs btn-primary" [routerLink]="['/product/update']" [queryParams]="{id: item.product_id}"><i class="fa fa-edit"></i></a>
-              <a class="btn btn-xs btn-danger" (click)="delete(item.product_id)"><i class="fa fa-trash"></i></a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="col-md-12">
+      <div class="overflow-auto">
+        <table class="table table-striped" [mfData]="data | productPipe : query" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th></th>
+              <th><mfDefaultSorter by="description">Description</mfDefaultSorter></th>
+              <th><mfDefaultSorter by="category.description">Category</mfDefaultSorter></th>
+              <th>Tags</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of mf.data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td><img src="{{ util.baseURL }}img/product/{{ item.img }}" alt="" class="product-img"></td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.category.description }}</td>
+              <td [innerHTML]="getProductTags(item.productTags)"></td>
+              <td>{{ item.quantity }}</td>
+              <td>{{ item.price }}</td>
+              <td>
+                <a class="btn btn-xs btn-info" [routerLink]="['/product/view']" [queryParams]="{id: item.product_id}"><i class="fa fa-th-list"></i></a>
+                <a class="btn btn-xs btn-primary" [routerLink]="['/product/update']" [queryParams]="{id: item.product_id}"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-xs btn-danger" (click)="delete(item.product_id)"><i class="fa fa-trash"></i></a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="8"><mfBootstrapPaginator></mfBootstrapPaginator></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
     </div>
   </div>
 

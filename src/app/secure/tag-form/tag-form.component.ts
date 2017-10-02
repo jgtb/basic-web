@@ -19,18 +19,18 @@ export class TagFormComponent implements OnInit {
 
   id: string;
 
-  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private tagProvider: TagProvider, private util: Util, private router: Router) {
-    this.initForm();
-    this.checkRouteParams();
-    this.getAction();
-    this.tagProvider.view(this.id).subscribe(data => {this.initFormValue(data)})
-    this.setTitle();
+  constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private tagProvider: TagProvider, private util: Util, private router: Router) {}
+
+  ngOnInit() {
+    this.checkRouteParams()
+    this.setNavbarTitle()
+    this.setBreadcrumbs()
+    this.initForm()
+    this.getTag()
   }
 
-  ngOnInit() {}
-
   getAction() {
-    return this.id == null ? 'Create' : 'Update';
+      return this.id == null ? 'Create' : 'Update';
   }
 
   doAction() {
@@ -44,12 +44,16 @@ export class TagFormComponent implements OnInit {
     }
   }
 
+  getTag() {
+    this.tagProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
+  }
+
   create() {
     let description = this.data.value.description;
 
     let data = JSON.stringify({description: description})
 
-    this.tagProvider.create(data).subscribe(data => this.router.navigate(['/tag']))
+    this.tagProvider.create(data).subscribe(data => this.router.navigate(['/category']))
   }
 
   update() {
@@ -57,7 +61,7 @@ export class TagFormComponent implements OnInit {
 
     let data = JSON.stringify({description: description})
 
-    this.tagProvider.update(this.id, data).subscribe(data => this.router.navigate(['/tag']))
+    this.tagProvider.update(this.id, data).subscribe(data => this.router.navigate(['/category']))
   }
 
   checkRouteParams() {
@@ -73,11 +77,22 @@ export class TagFormComponent implements OnInit {
   }
 
   initFormValue(data) {
-    this.data.controls['description'].setValue(data.description);
+    this.data.controls['description'].setValue(data.description)
   }
 
-  setTitle() {
-    this.util.navbarTitle = this.getAction() + ' Tag';
+  getTitle() {
+    return this.getAction() + ' Tag'
+  }
+
+  setNavbarTitle() {
+    this.util.navbarTitle = this.getTitle();
+  }
+
+  setBreadcrumbs() {
+    this.util.breadcrumbs = [];
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
+    this.util.breadcrumbs.push({title: 'Tags', path: '/Tag'});
+    this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'});
   }
 
 }
