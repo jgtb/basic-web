@@ -6,3 +6,9 @@
   text-transform: uppercase;;
   width: 120px;
 }
+
+img {
+	width: 75px;
+	height: 75px;
+	float: right;
+}

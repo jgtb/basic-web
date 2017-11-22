@@ -13,7 +13,7 @@ import { Util } from '../../util';
 })
 export class ChecklistViewComponent implements OnInit {
 
-  data;
+  dataChecklist: any = [];
 
   id: string;
 
@@ -27,7 +27,7 @@ export class ChecklistViewComponent implements OnInit {
   }
 
   getChecklist() {
-    this.checklistProvider.view(this.id).subscribe(data => this.data = data)
+    this.checklistProvider.view(this.id).subscribe(data => this.dataChecklist = data)
   }
 
   checkRouteParams() {
@@ -37,7 +37,7 @@ export class ChecklistViewComponent implements OnInit {
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Product View';
+    this.util.navbarTitle = 'Checklist View';
   }
 
   setBreadcrumbs() {

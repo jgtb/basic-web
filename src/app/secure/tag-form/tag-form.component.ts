@@ -33,13 +33,13 @@ export class TagFormComponent implements OnInit {
       return this.id == null ? 'Create' : 'Update';
   }
 
-  doAction() {
+  doAction(data) {
     switch(this.getAction()) {
       case 'Create':
-        this.create();
+        this.create(data);
       break;
       case 'Update':
-        this.update();
+        this.update(data);
       break;
     }
   }
@@ -48,20 +48,12 @@ export class TagFormComponent implements OnInit {
     this.tagProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
   }
 
-  create() {
-    let description = this.data.value.description;
-
-    let data = JSON.stringify({description: description})
-
-    this.tagProvider.create(data).subscribe(data => this.router.navigate(['/category']))
+  create(data) {
+    this.tagProvider.create(data).subscribe(data => this.router.navigate(['/tag']))
   }
 
-  update() {
-    let description = this.data.value.description;
-
-    let data = JSON.stringify({description: description})
-
-    this.tagProvider.update(this.id, data).subscribe(data => this.router.navigate(['/category']))
+  update(data) {
+    this.tagProvider.update(this.id, data).subscribe(data => this.router.navigate(['/tag']))
   }
 
   checkRouteParams() {

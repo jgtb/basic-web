@@ -4,7 +4,7 @@
     <div class="col-lg-6 col-lg-offset-3">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form [formGroup]="data" (ngSubmit)="doAction()">
+          <form [formGroup]="data" (ngSubmit)="doAction(data.value)">
             <div class="form-group">
               <label>Description</label>
               <input formControlName="description" placeholder="Description" type="text" class="form-control">

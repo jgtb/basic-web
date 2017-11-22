@@ -26,20 +26,21 @@ export class CategoryFormComponent implements OnInit {
     this.setNavbarTitle()
     this.setBreadcrumbs()
     this.initForm()
-    this.getCategory()
+    if (this.getAction() === 'Update')
+      this.getCategory()
   }
 
   getAction() {
       return this.id == null ? 'Create' : 'Update';
   }
 
-  doAction() {
+  doAction(data) {
     switch(this.getAction()) {
       case 'Create':
-        this.create();
+        this.create(data);
       break;
       case 'Update':
-        this.update();
+        this.update(data);
       break;
     }
   }
@@ -48,19 +49,11 @@ export class CategoryFormComponent implements OnInit {
     this.categoryProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
   }
 
-  create() {
-    let description = this.data.value.description;
-
-    let data = JSON.stringify({description: description})
-
+  create(data) {
     this.categoryProvider.create(data).subscribe(data => this.router.navigate(['/category']))
   }
 
-  update() {
-    let description = this.data.value.description;
-
-    let data = JSON.stringify({description: description})
-
+  update(data) {
     this.categoryProvider.update(this.id, data).subscribe(data => this.router.navigate(['/category']))
   }
 

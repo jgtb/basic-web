@@ -5,15 +5,15 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="checklist-content">
-            <h3><span class="fa fa-files-o"></span> {{ data.description }}</h3>
-            <h5><span class="fa fa-leaf"></span> {{ data.checklistProducts.length }} Products</h5>
+            <h3><span class="fa fa-files-o"></span> {{ dataChecklist?.description }}</h3>
+            <h5><span class="fa fa-leaf"></span> {{ dataChecklist?.checklistProducts?.length }} Products</h5>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="row">
+    <div class="row">
     <div class="col-lg-8 col-lg-offset-2">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -21,10 +21,20 @@
         </div>
         <div class="panel-body">
           <div class="row">
-            <div class="col-lg-3" *ngFor="let item of data.checklistProducts">
-              <img src="{{ util.baseURL }}img/product/{{ item.product.img }}" alt="" class="product-img">
+            <div class="product col-lg-4" *ngFor="let item of dataChecklist?.checklistProducts">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="panel-title">
+                    {{ item?.product?.description }}
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="product-img">
+                    <img src="{{ util.baseURL }}/img/product/{{ item?.product?.img }}" alt="">
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>

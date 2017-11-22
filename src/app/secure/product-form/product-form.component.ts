@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -16,6 +16,8 @@ import { Util } from '../../util';
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+
+  @ViewChild('fileInput') fileInput: ElementRef;
 
   dataCategory: any = [];
   dataTag: any = [];
@@ -41,13 +43,13 @@ export class ProductFormComponent implements OnInit {
     return this.id == null ? 'Create' : 'Update';
   }
 
-  doAction() {
+  doAction(data) {
     switch(this.getAction()) {
       case 'Create':
-        this.create();
+        this.create(data);
       break;
       case 'Update':
-        this.update();
+        this.update(data);
       break;
     }
   }
@@ -64,34 +66,18 @@ export class ProductFormComponent implements OnInit {
     })
   }
 
-  create() {
-    let category_id = this.data.value.category_id;
-    let productTags = this.data.value.productTags;
-    let description = this.data.value.description;
-    let quantity = this.data.value.quantity;
-    let price = this.data.value.price;
-
-    let data = JSON.stringify({category_id: category_id, productTags: productTags, description: description, quantity: quantity, price: price, img: "3.png"})
-
+  create(data) {
+    data.img = this.convertToUpload(data.img);
     this.productProvider.create(data).subscribe(data => this.router.navigate(['/product']))
   }
 
-  update() {
-    let category_id = this.data.value.category_id;
-    let productTags = this.data.value.productTags;
-    let description = this.data.value.description;
-    let quantity = this.data.value.quantity;
-    let price = this.data.value.price;
-
-    let data = JSON.stringify({category_id: category_id, productTags: productTags, description: description, quantity: quantity, price: price, img: "3.png"})
-
+  update(data) {
+    data.img = this.convertToUpload(data.img);
     this.productProvider.update(this.id, data).subscribe(data => this.router.navigate(['/product']))
   }
 
   checkRouteParams() {
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.id = params['id'];
-    });
+    this.activatedRoute.queryParams.subscribe(params => this.id = params['id'])
   }
 
   initForm() {
@@ -101,6 +87,7 @@ export class ProductFormComponent implements OnInit {
      category_id: ['', Validators.required],
      quantity: ['', Validators.required],
      price: ['', Validators.required],
+     img: ['']
     });
   }
 
@@ -110,10 +97,31 @@ export class ProductFormComponent implements OnInit {
     this.data.controls['category_id'].setValue(data.category_id)
     this.data.controls['quantity'].setValue(data.quantity)
     this.data.controls['price'].setValue(data.price)
+    this.data.controls['img'].setValue(this.util.baseURL + 'img/product/' + data.img)
+  }
+
+  onFileChange(event) {
+    this.convertToBase64(event.target);
+  }
+
+  convertToBase64(inputValue) {
+    const file: File = inputValue.files[0];
+    const fileReader: FileReader = new FileReader();
+
+    fileReader.onloadend = (e) => {
+      this.data.controls['img'].setValue(fileReader.result)
+    }
+
+    fileReader.readAsDataURL(file);
+  }
+
+  convertToUpload(img) {
+
   }
 
   setProductTags(data) {
-    data.productTags.map(obj => this.productTags.push(obj.tag_id))
+    if (this.getAction() === 'Update')
+      data.productTags.map(obj => this.productTags.push(obj.tag_id))
   }
 
   getTitle() {
