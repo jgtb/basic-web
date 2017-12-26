@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
-import { ProductProvider } from './../../providers/product/product';
+import { ProductProvider } from './../../providers/product/product'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { Observable } from "rxjs/Observable";
-import { AnonymousSubscription } from "rxjs/Subscription";
-import 'rxjs/Rx';
+import { Observable } from "rxjs/Observable"
+import { AnonymousSubscription } from "rxjs/Subscription"
+import 'rxjs/Rx'
 
 @Component({
   selector: 'app-product',
@@ -17,21 +17,21 @@ import 'rxjs/Rx';
 })
 export class ProductComponent implements OnInit, OnDestroy {
 
-  data;
-  query = "";
-  rowsOnPage = 10;
-  sortBy = "description";
-  sortOrder = "asc";
+  data
+  query = ''
+  rowsOnPage = 10
+  sortBy = 'description'
+  sortOrder = 'asc'
 
-  timerSubscription: AnonymousSubscription;
-  productsSubscription: AnonymousSubscription;
+  timerSubscription: AnonymousSubscription
+  productsSubscription: AnonymousSubscription
 
   constructor(private productProvider: ProductProvider, private util: Util, private router: Router) {}
 
   ngOnInit() {
     this.setNavbarTitle()
     this.setBreadcrumbs()
-    this.getCategories()
+    this.getProducts()
   }
 
   ngOnDestroy() {
@@ -42,30 +42,21 @@ export class ProductComponent implements OnInit, OnDestroy {
       this.timerSubscription.unsubscribe()
   }
 
-  getCategories() {
-    this.productProvider.index().subscribe(data => {
-      this.data = data;
-      this.refreshData()
-    })
-  }
-
   getProductTags(item) {
     let tags = item.reduce(function(prevVal, elem) {
-      return prevVal + '<span class="badge">' + elem.tag.description + '</span> ';
+      return prevVal + '<span class="badge">' + elem.tag.description + '</span> '
     }, '')
 
-    return tags;
+    return tags
   }
 
   delete(id) {
     this.productProvider.delete(id).subscribe(data => {
-      this.productProvider.index().subscribe(data => {
-        this.data = data;
-      })
+      this.getProducts()
     })
   }
 
-  refreshData() {
+  getProducts() {
     this.productsSubscription = this.productProvider.index().subscribe(data => {
       this.data = data;
       this.subscribeToData()
@@ -73,11 +64,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   subscribeToData() {
-    this.timerSubscription = Observable.timer(5000).subscribe(() => this.refreshData())
+    this.timerSubscription = Observable.timer(5000).subscribe(() => this.getProducts())
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Products';
+    this.util.navbarTitle = 'Products'
   }
 
   setBreadcrumbs() {

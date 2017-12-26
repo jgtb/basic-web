@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
   name: 'categoryPipe',
@@ -8,7 +8,7 @@ export class CategoryPipe implements PipeTransform {
 
   transform(data: any, query: string) {
     if (data == null)
-      return [];
+      return []
 
     if (query == null)
       return data;

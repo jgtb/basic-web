@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { CategoryProvider } from '../../providers/category/category';
-import { TagProvider } from '../../providers/tag/tag';
-import { ProductProvider } from '../../providers/product/product';
-import { ChecklistProvider } from '../../providers/checklist/checklist';
+import { CategoryProvider } from '../../providers/category/category'
+import { TagProvider } from '../../providers/tag/tag'
+import { ProductProvider } from '../../providers/product/product'
+import { ChecklistProvider } from '../../providers/checklist/checklist'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
 @Component({
     selector: 'dashboard-cmp',
@@ -15,11 +15,11 @@ import { Util } from '../../util';
 
 export class DashboardComponent implements OnInit {
 
-    data;
-    countCategory: number;
-    countTag: number;
-    countProduct: number;
-    countChecklist: number;
+    data
+    countCategory: number
+    countTag: number
+    countProduct: number
+    countChecklist: number
 
     constructor(private util: Util, private categoryProvider: CategoryProvider, private tagProvider: TagProvider, private productProvider: ProductProvider, private checklistProvider: ChecklistProvider) {}
 
@@ -34,10 +34,10 @@ export class DashboardComponent implements OnInit {
     }
 
     setNavbarTitle() {
-      this.util.navbarTitle = 'Dashboard';
+      this.util.navbarTitle = 'Dashboard'
     }
 
     setBreadcrumbs() {
-      this.util.breadcrumbs = false;
+      this.util.breadcrumbs = false
     }
 }

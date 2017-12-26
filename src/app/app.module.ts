@@ -38,8 +38,6 @@ import { ProductFormComponent } from './secure/product-form/product-form.compone
 import { ProductViewComponent } from './secure/product-view/product-view.component';
 import { ChecklistFormComponent } from './secure/checklist-form/checklist-form.component';
 import { ChecklistViewComponent } from './secure/checklist-view/checklist-view.component';
-import { RegisterComponent } from './secure/register/register.component';
-import { ForgotPasswordComponent } from './secure/forgot-password/forgot-password.component';
 
 import { CategoryPipe } from './pipes/category/category.pipe';
 import { TagPipe } from './pipes/tag/tag.pipe';
@@ -71,8 +69,6 @@ import { DataTableModule } from "angular2-datatable";
     ProductViewComponent,
     ChecklistFormComponent,
     ChecklistViewComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
     CategoryPipe,
     TagPipe,
     ProductPipe,

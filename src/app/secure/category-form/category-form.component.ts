@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { CategoryProvider } from './../../providers/category/category';
+import { CategoryProvider } from './../../providers/category/category'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
 @Component({
   selector: 'app-category-form',
@@ -15,9 +15,9 @@ import { Util } from '../../util';
 })
 export class CategoryFormComponent implements OnInit {
 
-  data: FormGroup;
+  form: FormGroup
 
-  id: string;
+  id: string
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {}
 
@@ -31,17 +31,17 @@ export class CategoryFormComponent implements OnInit {
   }
 
   getAction() {
-      return this.id == null ? 'Create' : 'Update';
+      return this.id === null ? 'Create' : 'Update';
   }
 
   doAction(data) {
     switch(this.getAction()) {
       case 'Create':
-        this.create(data);
-      break;
+        this.create(data)
+      break
       case 'Update':
-        this.update(data);
-      break;
+        this.update(data)
+      break
     }
   }
 
@@ -60,17 +60,17 @@ export class CategoryFormComponent implements OnInit {
   checkRouteParams() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       this.id = params['id'];
-    });
+    })
   }
 
   initForm() {
-    this.data = this.formBuilder.group({
+    this.form = this.formBuilder.group({
      description: ['', Validators.required],
-    });
+    })
   }
 
   initFormValue(data) {
-    this.data.controls['description'].setValue(data.description)
+    this.form.controls['description'].setValue(data.description)
   }
 
   getTitle() {
@@ -78,14 +78,14 @@ export class CategoryFormComponent implements OnInit {
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = this.getTitle();
+    this.util.navbarTitle = this.getTitle()
   }
 
   setBreadcrumbs() {
     this.util.breadcrumbs = [];
-    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'});
-    this.util.breadcrumbs.push({title: 'Categories', path: '/category'});
-    this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'});
+    this.util.breadcrumbs.push({title: 'Dashboard', path: '/dashboard'})
+    this.util.breadcrumbs.push({title: 'Categories', path: '/category'})
+    this.util.breadcrumbs.push({title: this.getTitle(), class: 'active'})
   }
 
 }

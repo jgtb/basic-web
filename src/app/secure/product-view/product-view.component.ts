@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { ProductProvider } from './../../providers/product/product';
+import { ProductProvider } from './../../providers/product/product'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
 @Component({
   selector: 'app-product-view',
@@ -13,7 +13,7 @@ import { Util } from '../../util';
 })
 export class ProductViewComponent implements OnInit {
 
-  dataProduct:any = [];
+  dataProduct: any = []
 
   id: string
 
@@ -28,13 +28,13 @@ export class ProductViewComponent implements OnInit {
 
   checkRouteParams() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.id = params['id'];
-    });
+      this.id = params['id']
+    })
   }
 
   getProduct() {
     this.productProvider.view(this.id).subscribe(data => {
-      this.dataProduct = data;
+      this.dataProduct = data
     })
   }
 
@@ -47,7 +47,7 @@ export class ProductViewComponent implements OnInit {
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Product View';
+    this.util.navbarTitle = 'Product View'
   }
 
   setBreadcrumbs() {

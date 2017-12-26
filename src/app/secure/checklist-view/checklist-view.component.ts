@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { ChecklistProvider } from './../../providers/checklist/checklist';
+import { ChecklistProvider } from './../../providers/checklist/checklist'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
 @Component({
   selector: 'app-checklist-view',
@@ -13,9 +13,9 @@ import { Util } from '../../util';
 })
 export class ChecklistViewComponent implements OnInit {
 
-  dataChecklist: any = [];
+  dataChecklist: any = []
 
-  id: string;
+  id: string
 
   constructor(private util: Util, private activatedRoute: ActivatedRoute, private checklistProvider: ChecklistProvider) {}
 
@@ -32,12 +32,12 @@ export class ChecklistViewComponent implements OnInit {
 
   checkRouteParams() {
     this.activatedRoute.queryParams.subscribe((params: Params) => {
-      this.id = params['id'];
-    });
+      this.id = params['id']
+    })
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Checklist View';
+    this.util.navbarTitle = 'Checklist View'
   }
 
   setBreadcrumbs() {

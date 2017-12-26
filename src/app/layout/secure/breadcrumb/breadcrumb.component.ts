@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { Util } from '../../../util';
+import { Util } from '../../../util'
 
 @Component({
   selector: 'app-breadcrumb',
@@ -11,13 +11,12 @@ import { Util } from '../../../util';
 })
 export class BreadcrumbComponent implements OnInit {
 
-  constructor(private router: Router, private util: Util) {
-  }
+  constructor(private router: Router, private util: Util) {}
 
   ngOnInit() {}
 
   goTo(breadcrumb) {
-    this.router.navigate([breadcrumb.path], {queryParams: breadcrumb.params});
+    this.router.navigate([breadcrumb.path], {queryParams: breadcrumb.params})
   }
 
 }

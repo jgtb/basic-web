@@ -4,13 +4,13 @@
     <div class="col-lg-6 col-lg-offset-3">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form [formGroup]="data" (ngSubmit)="doAction(data.value)">
+          <form [formGroup]="form" (ngSubmit)="doAction(form.value)">
             <div class="form-group">
               <label>Description</label>
               <input formControlName="description" placeholder="Description" type="text" class="form-control">
             </div>
             <div class="form-button">
-              <button type="submit" class="btn btn-primary" [disabled]="!data.valid">{{ getAction() }}</button>
+              <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{ getAction() }}</button>
             </div>
           </form>
         </div>

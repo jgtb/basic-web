@@ -1,14 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core'
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { ProductProvider } from './../../providers/product/product';
-import { CategoryProvider } from './../../providers/category/category';
-import { TagProvider } from './../../providers/tag/tag';
+import { ProductProvider } from './../../providers/product/product'
+import { CategoryProvider } from './../../providers/category/category'
+import { TagProvider } from './../../providers/tag/tag'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
 @Component({
   selector: 'app-product-form',
@@ -19,13 +19,13 @@ export class ProductFormComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput: ElementRef;
 
-  dataCategory: any = [];
-  dataTag: any = [];
-  productTags: any = [];
+  dataCategory: any = []
+  dataTag: any = []
+  productTags: any = []
 
-  data: FormGroup;
+  data: FormGroup
 
-  id: string;
+  id: string
 
   constructor(private formBuilder: FormBuilder, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider, private tagProvider: TagProvider, private categoryProvider: CategoryProvider, private util: Util, private router: Router) {}
 
@@ -40,23 +40,23 @@ export class ProductFormComponent implements OnInit {
   }
 
   getAction() {
-    return this.id == null ? 'Create' : 'Update';
+    return this.id == null ? 'Create' : 'Update'
   }
 
   doAction(data) {
     switch(this.getAction()) {
       case 'Create':
-        this.create(data);
-      break;
+        this.create(data)
+      break
       case 'Update':
-        this.update(data);
-      break;
+        this.update(data)
+      break
     }
   }
 
   getData() {
-    this.dataCategory = this.categoryProvider.index().subscribe(data => { this.dataCategory = data })
-    this.dataTag = this.tagProvider.index().subscribe(data => { this.dataTag = data })
+    this.categoryProvider.index().subscribe(data => { this.dataCategory = data })
+    this.tagProvider.index().subscribe(data => { this.dataTag = data })
   }
 
   getProduct() {
@@ -67,12 +67,12 @@ export class ProductFormComponent implements OnInit {
   }
 
   create(data) {
-    data.img = this.convertToUpload(data.img);
+    data.img = this.convertToUpload(data.img)
     this.productProvider.create(data).subscribe(data => this.router.navigate(['/product']))
   }
 
   update(data) {
-    data.img = this.convertToUpload(data.img);
+    data.img = this.convertToUpload(data.img)
     this.productProvider.update(this.id, data).subscribe(data => this.router.navigate(['/product']))
   }
 
@@ -88,7 +88,7 @@ export class ProductFormComponent implements OnInit {
      quantity: ['', Validators.required],
      price: ['', Validators.required],
      img: ['']
-    });
+    })
   }
 
   initFormValue(data) {
@@ -125,7 +125,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   getTitle() {
-    return this.getAction() + ' Product';
+    return this.getAction() + ' Product'
   }
 
   setNavbarTitle() {

@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
-import { ChecklistProvider } from './../../providers/checklist/checklist';
+import { ChecklistProvider } from './../../providers/checklist/checklist'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { Observable } from "rxjs/Observable";
-import { AnonymousSubscription } from "rxjs/Subscription";
-import 'rxjs/Rx';
+import { Observable } from "rxjs/Observable"
+import { AnonymousSubscription } from "rxjs/Subscription"
+import 'rxjs/Rx'
 
 @Component({
   selector: 'app-checklist',
@@ -17,11 +17,11 @@ import 'rxjs/Rx';
 })
 export class ChecklistComponent implements OnInit, OnDestroy {
 
-  data;
-  query = "";
-  rowsOnPage = 10;
-  sortBy = "description";
-  sortOrder = "asc";
+  data
+  query = ''
+  rowsOnPage = 10
+  sortBy = 'description'
+  sortOrder = 'asc'
 
   timerSubscription: AnonymousSubscription;
   checklistsSubscription: AnonymousSubscription;
@@ -31,7 +31,7 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setNavbarTitle()
     this.setBreadcrumbs()
-    this.getCategories()
+    this.getChecklists()
   }
 
   ngOnDestroy() {
@@ -42,30 +42,21 @@ export class ChecklistComponent implements OnInit, OnDestroy {
       this.timerSubscription.unsubscribe()
   }
 
-  getCategories() {
-    this.checklistProvider.index().subscribe(data => {
-      this.data = data;
-      this.refreshData()
-    })
-  }
-
   getChecklistProducts(item) {
     let tags = item.reduce(function(prevVal, elem) {
-      return prevVal + '<span class="badge">' + elem.product.description + '</span> ';
+      return prevVal + '<span class="badge">' + elem.product.description + '</span> '
     }, '')
 
-    return tags.substr(0, tags.length -2);
+    return tags
   }
 
   delete(id) {
     this.checklistProvider.delete(id).subscribe(data => {
-      this.checklistProvider.index().subscribe(data => {
-        this.data = data;
-      })
+      this.getChecklists()
     })
   }
 
-  refreshData() {
+  getChecklists() {
     this.checklistsSubscription = this.checklistProvider.index().subscribe(data => {
       this.data = data;
       this.subscribeToData()
@@ -73,11 +64,11 @@ export class ChecklistComponent implements OnInit, OnDestroy {
   }
 
   subscribeToData() {
-    this.timerSubscription = Observable.timer(5000).subscribe(() => this.refreshData())
+    this.timerSubscription = Observable.timer(5000).subscribe(() => this.getChecklists())
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Checklists';
+    this.util.navbarTitle = 'Checklists'
   }
 
   setBreadcrumbs() {

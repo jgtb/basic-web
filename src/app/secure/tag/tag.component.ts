@@ -1,14 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core'
 
-import { TagProvider } from './../../providers/tag/tag';
+import { TagProvider } from './../../providers/tag/tag'
 
-import { Util } from '../../util';
+import { Util } from '../../util'
 
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router'
 
-import { Observable } from "rxjs/Observable";
-import { AnonymousSubscription } from "rxjs/Subscription";
-import 'rxjs/Rx';
+import { Observable } from "rxjs/Observable"
+import { AnonymousSubscription } from "rxjs/Subscription"
+import 'rxjs/Rx'
 
 @Component({
   selector: 'app-tag',
@@ -17,11 +17,11 @@ import 'rxjs/Rx';
 })
 export class TagComponent implements OnInit, OnDestroy {
 
-  data;
-  query = "";
-  rowsOnPage = 10;
-  sortBy = "description";
-  sortOrder = "asc";
+  data
+  query = ''
+  rowsOnPage = 10
+  sortBy = 'description'
+  sortOrder = 'asc'
 
   timerSubscription: AnonymousSubscription;
   tagsSubscription: AnonymousSubscription;
@@ -42,22 +42,13 @@ export class TagComponent implements OnInit, OnDestroy {
       this.timerSubscription.unsubscribe()
   }
 
-  getTags() {
-    this.tagProvider.index().subscribe(data => {
-      this.data = data;
-      this.refreshData()
-    })
-  }
-
   delete(id) {
     this.tagProvider.delete(id).subscribe(data => {
-      this.tagProvider.index().subscribe(data => {
-        this.data = data;
-      })
+      this.getTags()
     })
   }
 
-  refreshData() {
+  getTags() {
     this.tagsSubscription = this.tagProvider.index().subscribe(data => {
       this.data = data;
       this.subscribeToData()
@@ -65,11 +56,11 @@ export class TagComponent implements OnInit, OnDestroy {
   }
 
   subscribeToData() {
-    this.timerSubscription = Observable.timer(5000).subscribe(() => this.refreshData())
+    this.timerSubscription = Observable.timer(5000).subscribe(() => this.getTags())
   }
 
   setNavbarTitle() {
-    this.util.navbarTitle = 'Tags';
+    this.util.navbarTitle = 'Tags'
   }
 
   setBreadcrumbs() {
