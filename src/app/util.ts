@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class Util {
 
   //baseURL = 'http://localhost/basic-ws/web/';
-  baseURL = 'http://jgtbraga.com/web/';
+  baseURL = 'https://jgtbraga.com/web/';
 
   navbarTitle: string;
 
