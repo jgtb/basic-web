@@ -12,7 +12,7 @@ import { Util } from '../../../util';
 })
 
 export class NavbarComponent implements OnInit{
-    private dataUser: any = [];
+    public dataUser: any = [];
 
     private nativeElement: Node;
     private toggleButton;
