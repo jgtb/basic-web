@@ -9,12 +9,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --target=production"
+    "postinstall": "ng build --prod --target=production"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^4.0.0",
-    "@angular/cli": "1.1.1",
+    "@angular/cli": "1.2.4",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
@@ -33,6 +33,7 @@
     "bootstrap-notify": "^3.1.3",
     "chartist": "^0.9.4",
     "core-js": "^2.4.1",
+    "enhanced-resolve": "^3.3.0",
     "express": "^4.16.2",
     "jquery": "^1.12.4",
     "moment": "^2.18.1",
@@ -41,7 +42,7 @@
     "rxjs": "^5.1.0",
     "typescript": "~2.3.3",
     "underscore": "^1.8.3",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/language-service": "^4.0.0",
