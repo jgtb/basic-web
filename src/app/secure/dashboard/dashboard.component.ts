@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
     countProduct: number
     countChecklist: number
 
-    constructor(private util: Util, private categoryProvider: CategoryProvider, private tagProvider: TagProvider, private productProvider: ProductProvider, private checklistProvider: ChecklistProvider) {}
+    constructor(public util: Util, private categoryProvider: CategoryProvider, private tagProvider: TagProvider, private productProvider: ProductProvider, private checklistProvider: ChecklistProvider) {}
 
     ngOnInit() {
       this.data = this.util.getUser()

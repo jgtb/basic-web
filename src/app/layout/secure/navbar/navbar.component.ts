@@ -12,13 +12,13 @@ import { Util } from '../../../util';
 })
 
 export class NavbarComponent implements OnInit{
-    private dataUser: any[];
+    private dataUser: any = [];
 
     private nativeElement: Node;
     private toggleButton;
     private sidebarVisible: boolean;
 
-    constructor(private element: ElementRef, private authProvider: AuthProvider, private util: Util) {
+    constructor(private element: ElementRef, private authProvider: AuthProvider, public util: Util) {
         this.dataUser = this.util.getUser()
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;

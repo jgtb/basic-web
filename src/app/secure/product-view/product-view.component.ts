@@ -17,7 +17,7 @@ export class ProductViewComponent implements OnInit {
 
   id: string
 
-  constructor(private util: Util, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider) {}
+  constructor(public util: Util, private activatedRoute: ActivatedRoute, private productProvider: ProductProvider) {}
 
   ngOnInit() {
     this.checkRouteParams()

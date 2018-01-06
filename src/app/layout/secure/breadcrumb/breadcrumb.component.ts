@@ -11,7 +11,7 @@ import { Util } from '../../../util'
 })
 export class BreadcrumbComponent implements OnInit {
 
-  constructor(private router: Router, private util: Util) {}
+  constructor(private router: Router, public util: Util) {}
 
   ngOnInit() {}
 
