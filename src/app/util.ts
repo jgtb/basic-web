@@ -3,9 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Util {
 
-  //baseURL = 'http://localhost/basic-ws/web/';
+  baseURL = 'http://localhost/basic-ws/web/';
   //baseURL = 'https://jgtbraga.com/web/';
-  baseURL = 'http://localhost:3000/';
 
   navbarTitle: string;
 
