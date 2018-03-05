@@ -28,21 +28,18 @@ export class LoginComponent implements OnInit {
   initForm() {
     this.form = this.formBuilder.group({
      email: ['succ@gmail.com', Validators.required],
-     password: ['123123', Validators.required]
+     password: ['123456', Validators.required]
     })
   }
 
   login(data) {
     this.authProvider.login(data).subscribe(
-      data => {
-        if (data) {
-          localStorage.setItem('isLogged', 'true')
-          this.util.setUser(data)
-          this.hasAuthError = false;
-          this.router.navigate(['/dashboard'])
-        } else {
-          this.hasAuthError = true;
-        }
+      res => {
+        localStorage.setItem('isLogged', 'true')
+        localStorage.setItem('token', res.token)
+        this.util.setUser(res.user)
+        this.hasAuthError = false
+        this.router.navigate(['/dashboard'])
        },
       err => {},
       () => {})

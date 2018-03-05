@@ -45,7 +45,8 @@ export class TagFormComponent implements OnInit {
   }
 
   getTag() {
-    this.tagProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
+    if (this.getAction() === 'Update')
+      this.tagProvider.view(this.id).subscribe(data => { this.initFormValue(data) })
   }
 
   create(data) {

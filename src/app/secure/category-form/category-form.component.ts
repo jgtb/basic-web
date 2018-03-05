@@ -31,7 +31,7 @@ export class CategoryFormComponent implements OnInit {
   }
 
   getAction() {
-      return this.id === null ? 'Create' : 'Update';
+      return this.id == null ? 'Create' : 'Update';
   }
 
   doAction(data) {
