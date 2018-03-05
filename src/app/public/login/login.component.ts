@@ -36,8 +36,7 @@ export class LoginComponent implements OnInit {
     this.authProvider.login(data).subscribe(
       res => {
         localStorage.setItem('isLogged', 'true')
-        localStorage.setItem('token', res.token)
-        this.util.setUser(res.user)
+        this.util.setUser(res)
         this.hasAuthError = false
         this.router.navigate(['/dashboard'])
        },
